@@ -59,6 +59,7 @@ public class Main {
 				if(map[tx][ty] == 1) {
 					if(dp[tx][ty] > 0) {		//이미 방문한 적이 있는 곳이면 지금 경로가 더 빠른가 원래가 빠른가 확인 
 						//이미 방문한 경우면 큐에 이미 들어가 있으니 add 필요 없
+						//현재가 최솟값(빠른)경로 일 경우에도 이미 그 전에방문했을때 else에 걸려서 queue에 들어가있 
 						dp[tx][ty] = dp[p.x][p.y] + 1 > dp[tx][ty] ? dp[tx][ty] : dp[p.x][p.y] + 1;
 					}
 					else {		

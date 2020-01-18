@@ -25,7 +25,7 @@ public class Main {
 		Queue<Integer> q = new LinkedList<Integer>();
 		
 		for(int i = 0; i < size; i++) {
-			for(int j = 0; j < arr[i].size(); j++) {
+			for(int j = 0; j < arr[i].size(); j++) { 
 				q.add(arr[i].get(j));
 			//	map[i][arr[i].get(j)] = 1;
 			}

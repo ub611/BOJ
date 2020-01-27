@@ -19,7 +19,5 @@ public class Main {
 		for(int i = 0; i < cnt; i++) {
 			String c = sc.next();
 		}
-		
 	}
-
 }

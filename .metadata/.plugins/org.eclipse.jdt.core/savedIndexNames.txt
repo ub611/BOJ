@@ -10,6 +10,7 @@ INDEX VERSION 1.130+/Users/ubinkim/Desktop/알고리즘/BOJ/.metadata/.plugins/o
 417013748.index
 2129460149.index
 2766478785.index
+840650785.index
 3173225653.index
 4020066856.index
 440405534.index

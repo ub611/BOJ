@@ -64,11 +64,6 @@ public class Main {
 			
 			}
 		}
-		
-//		for(int i = 0; i < k; i++) {
-//			System.out.println(i + " = " + map.get(i + 1) + " " + revMap.get(i + 1));
-//		}
-//		
 
 		char[] ans = new char[k];
 		
@@ -84,7 +79,17 @@ public class Main {
 			if(a == b) {
 				ans[a] = '*';
 			}else {
-				ans[Math.min(a, b)] = '-';
+				int idx = Math.min(a, b);
+				ans[idx] = '-';
+				
+				if(idx - 1 >= 0 && ans[idx - 1] == '-') {
+					System.out.println("********");
+					return;
+				}else if(idx + 1 <= k - 1 && ans[k - 1] == '-') {
+					System.out.println("********");
+					return;
+				}
+				
 				ans[Math.max(a, b)] = '*';
 			}
 			

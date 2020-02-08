@@ -1,64 +1,56 @@
-//사다리타기
+//택배
 import java.util.*;
 
 public class Main {
 
-
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
 		Scanner sc = new Scanner(System.in);
-		int k = sc.nextInt();		//참가자 수, 3 <= <= 26
 		int n = sc.nextInt();
-		int qidx = 0;
+		int d = sc.nextInt();	
+		int k = sc.nextInt();
 
-		char[][] map = new char[n][k - 1];
+		int arr[][] = new int[n + 1][n + 1];
 
-		for(int i = 0; i < n; i++) {
-			String str = sc.next();
-			char[] tmp = str.toCharArray();
-
-			if(tmp[0] == '?') {
-				qidx = i;
-			}
-
-			for(int j = 0; j < k - 1; j++) {
-				map[i][j] = tmp[j];
-			}
-		}
-
-		
-		HashMap<Character, Integer> h = new HashMap<Character, Integer>();
-		
 		for(int i = 0; i < k; i++) {
-			h.put((char) ('A' + i), i);
+			int a = sc.nextInt();
+			int b = sc.nextInt();
+			int c = sc.nextInt();
+
+			arr[a][b] = c;
 		}
-		
-		int x = 0;		//세로 idx
-		int y = 0;
-		
-		while(y < qidx) {
-			x %= k;
-			
-			if(map[x][y] == '-') {
-				h.put((char)('A' + x), x + 1);
+
+		int delivery[] = new int[n + 1];
+		int sum = 0;
+		int ans = 0;
+
+		for(int i = 1; i <= n; i++) {
+			int idx = i + 1;
+
+			if(delivery[i] > 0) {
+				sum -= delivery[i];
+				ans += delivery[i];
 			}
-			else if(x - 1 >= 0) {
-				if(map[x - 1][y] == '-') {
-					h.put((char)('A' + x), x - 1);
+
+			while(sum != d) {
+				if(idx > n)
+					break;
+				if(arr[i][idx] > 0) {
+					if(d < sum + arr[i][idx]) {
+						delivery[idx] += (d - sum);
+						sum += d - sum;
+					}
+					else {
+						delivery[idx] += arr[i][idx];
+						sum += arr[i][idx];
+					}
 				}
+				idx++;
 			}
 			
-			x++;
-			y++;
 		}
 		
-		for(int i = 0; i < k; i++) {
-			System.out.println((char)('A' + i) + " = " + h.get((char)('A' + i)));
-		}
-		
-
-
-
+		System.out.println(ans);
 	}
 
 }

@@ -23,6 +23,7 @@ public class Main {
 			initMap(0, 0, n, m);
 			getAns(1, 1, n, m);
 		}else {
+			
 			initMap(0, 0, x, y);
 			getAns(1, 1, x, y);
 		

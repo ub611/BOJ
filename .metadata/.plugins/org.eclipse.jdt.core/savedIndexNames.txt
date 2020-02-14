@@ -13,11 +13,14 @@ INDEX VERSION 1.130+/Users/ubinkim/Desktop/알고리즘/BOJ/.metadata/.plugins/o
 2129460149.index
 3589560201.index
 3295778323.index
+1830038329.index
 1605696748.index
 682871930.index
 3334319446.index
 3173225653.index
+437459887.index
 212169457.index
+2199538197.index
 4279987837.index
 1596356261.index
 943504989.index

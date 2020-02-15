@@ -1,141 +1,66 @@
-import java.io.BufferedReader;
-import java.io.InputStreamReader;
-import java.util.Arrays;
-import java.util.StringTokenizer;
- 
-//BOJ:: 17281 야구 
-public class Main {
-    static int N;
-    static int[][] rst;
- 
-    public static void main(String[] args) throws Exception {
-        BufferedReader bf = new BufferedReader(new InputStreamReader(System.in));
-        N = Integer.parseInt(bf.readLine()); // 이닝
-        rst = new int[N][10];
-        for (int i = 0; i < N; i++) {
-            StringTokenizer st = new StringTokenizer(bf.readLine());
-            for (int j = 1; j < 10; j++) {
-                rst[i][j] = Integer.parseInt(st.nextToken());
-            }
-        } //////// input
- 
-        visit = new boolean[10];
-        player = new int[10];
-        player[4] = 1;
-        max = -1;
-        perm(1);
-        System.out.println(max);
-    }// end of main
- 
-    static boolean[] visit;
-    static int[] player;
-    static int max;
-    public static void perm(int len) { // 선수 배치하기
-        if (len == 4) { // 4번째 타자는 1번.
-            perm(len + 1);
-            return;
-        }
-        if (len == 10) {
-            // 선택완료
-            int score = playGame();
-            if(score > max) {
-            		for(int x : player) {
-            			System.out.print(x + " ");
-            		}
-            		System.out.println(score +  "");
-            }
-            max = max<score? score:max;
-            return;
-        }
- 
-        for (int i = 2; i < 10; i++) {
-            if (visit[i])
-                continue;
-            player[len] = i;
-            visit[i] = true;
-            perm(len + 1);
-            visit[i] = false;
-        }
-    }
- 
-    public static int playGame() {
-        int score = 0;
-        int out;
-        boolean[] roo = new boolean[4];
-        int hitter = 1;
-        
-        for (int inning = 0; inning < N; inning++) {
-            out = 0;
-            Arrays.fill(roo, false);
-            while(true) {
-                int now = rst[inning][player[hitter]];
-                if(hitter==9) hitter = 1;
-                else hitter++;
-                if (now == 1) { // 안타
-                    if(roo[3]) {
-                        score++;
-                        roo[3]=false;
-                    }
-                    for(int r=2;r>=1;r--) {
-                        if(roo[r]) {
-                            roo[r]=false;
-                            roo[r+1]=true;
-                        }
-                    }
-                    roo[1]=true;
-                } else if (now == 2) { // 2루타
-                    if(roo[3]) {
-                        score++;
-                        roo[3]=false;
-                    }
-                    if(roo[2]) {
-                        score++;
-                        roo[2]=false;
-                    }
-                    if(roo[1]) {
-                        roo[1]=false;
-                        roo[3]=true;
-                    }
-                    roo[2]=true;
- 
-                } else if (now == 3) { // 3루타
-                    for(int r=1;r<=3;r++) {
-                        if(roo[r]) {
-                            score++;
-                            roo[r]=false;
-                        }
-                    }
-                    roo[3] = true;
-                } else if (now == 4) { // 홈런
-                    for(int r=1;r<=3;r++) {
-                        if(roo[r]) {
-                            score++;
-                            roo[r]=false;
-                        }
-                    }
-                    score++; //타자도 홈으로.
-                } else if (now == 0) { // 아웃
-                    out++;
-                    if (out == 3) {
-                        break;
-                    }
-                }
-            }
-        }// end of for
-        return score;
-    } //end of playGame
-}// end of class
- 
-//
-//0 2 3 4 1 5 6 7 8 9  39
-//0 2 3 4 1 9 5 6 7 8  43
-//0 2 3 4 1 7 9 5 6 8  44
-//0 2 3 4 1 8 9 5 6 7  45
-//0 2 3 4 1 6 8 9 5 7  46
-//0 2 3 4 1 6 7 8 9 5  47
-//47
-//
-//0 2 3 4 1 5 6 7 8 9 39
-//0 2 3 4 1 6 7 8 9 5 45
-//0 2 3 4 1 7 8 9 6 5 46
+//서울에서 경산까지
+import java.util.*;
 
+public class Main {
+	public static class Info{
+		int t;
+		int m;
+		
+		public Info(int t, int m) {
+			this.m = m;
+			this.t = t;
+		}
+		
+	}
+	static Info arr[][];
+	static int dp[][];
+	static boolean check[];
+	static int n;
+	static int k;
+	static int ans = 0;
+	static int ret = 0;
+	
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+		Scanner sc = new Scanner(System.in);
+		n = sc.nextInt();
+		k = sc.nextInt();
+		
+		check = new boolean[n];
+		arr = new Info[n][2];
+		dp = new int[n][100001];
+		
+		for(int i = 0; i < n; i++) {
+			arr[i][0] = new Info(sc.nextInt(), sc.nextInt());
+			arr[i][1] = new Info(sc.nextInt(), sc.nextInt());
+			check[i] = false;
+		}
+		
+		System.out.println(ans);
+
+	}
+	
+	public static void dfs(int depth, int t) {
+		if(depth >= n || t >= k) {
+			for(int i = 0; i < n; i++) {
+				if(!check[i]) {
+					return;
+				}
+			}
+			ans = Math.max(ret, ans);
+			return;
+		}
+		
+		for(int i = 0; i < n; i++) {
+			ret += arr[i][0].m;
+			check[i] = true;
+			dfs(depth + 1, t + arr[i][0].t);
+			ret -= arr[i][0].m;
+			ret += arr[i][1].m;
+			dfs(depth + 1, t + arr[i][1].t);
+			ret -= arr[i][1].m;
+			check[i] = false;
+		}
+	}
+
+}

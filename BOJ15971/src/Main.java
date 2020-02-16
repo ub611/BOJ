@@ -2,11 +2,6 @@
 import java.util.*;
 
 public class Main {
-	public static class Info{
-		int t;
-		int f;
-		int v;
-	}
 	static int map[][];
 	static int n;
 	static boolean ck[];
@@ -26,7 +21,7 @@ public class Main {
 		int a = sc.nextInt();
 		int b = sc.nextInt();
 
-		for(int i = 1; i < n; i++) {
+		for(int i = 0; i < n - 1; i++) {
 			int x = sc.nextInt();
 			int y = sc.nextInt();
 			int v = sc.nextInt();
@@ -34,27 +29,8 @@ public class Main {
 			map[x][y] = v;
 			map[y][x] = v;
 		}
-		int max = 0;
-		
-		Queue<Integer> q = new LinkedList<Integer>();
-		q.add(a);
-		
-		while(!q.isEmpty()) {
-			int t = q.poll();
-			
-			if(t == b) {
-				
-			}
-			
-			for(int i = 1; i <= n; i++) {
-				if(map[t][i] != 0) {
-					q.add(i);
-				}
-			}
-		}
-		
 
-//		dfs(Math.min(a, b), Math.max(a, b));
+		dfs(Math.min(a, b), Math.max(a, b));
 		System.out.println(ans);
 
 

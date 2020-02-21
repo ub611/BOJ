@@ -26,7 +26,7 @@ public class Main {
 						}
 						
 						t = str.substring(j, tmp.length - 1 - j).toCharArray();
-
+ 
 						if(ckPalin(t)) {
 							System.out.println("1");
 							break;

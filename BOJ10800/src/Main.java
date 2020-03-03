@@ -18,28 +18,35 @@ public class Main {
 			list[i] = new Info(col, size, i);
 		}
 		
+		sc.close();
+		
 		Arrays.sort(list);
 
 		int sum = 0;
-		int max = -1;
-		long maxSum = 0;
+		int bef = -1;
 		
 		for(int i = 0; i < list.length; i++) {
 			Info ele = list[i];
 
-			if(ele.size == max) {	
-				arr[ele.num] = (int) (sum - color[ele.col] - maxSum);
-				maxSum += ele.size;
-			}else {
-				arr[ele.num] = sum - color[ele.col];
-				maxSum = ele.size;
+			arr[ele.num] = sum - color[ele.col];
+					
+			if(ele.size == bef) {
+				int idx = i - 1;
 				
+				while(list[idx].size == ele.size ) {		//크기가 같은 경우
+					if(list[idx--].col != ele.col)		//같은 색인 경우 제외해야함
+						arr[ele.num] -= ele.size;
+
+					if(idx < 0)
+						break;
+				}
 			}
-			
+	
 			sum += ele.size;
 			color[ele.col] += ele.size;
-			max = ele.size;
+			bef = ele.size;
 		}
+		
 		
 		for(int x : arr) {
 			System.out.println(x);

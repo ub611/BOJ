@@ -11,14 +11,17 @@ public class Main {
 		int y = sc.nextInt();
 		int t = sc.nextInt();
 				
-		int tw = t % (2 * w);
-		int th = t % (2 * h);
+		int tw = (t + x) % (2 * w);
+		int th = (t + y) % (2 * h);
 		
-		x = w - Math.abs(w - (x + tw));
-		y = h - Math.abs(h - (y + th));
+		if(tw > w)
+			tw = w - (tw - w);
+		if(th > h)
+			th = h - (th - h);
 		
-		System.out.println(x + " " + y);
+		System.out.println(tw + " " + th);
 
+		sc.close();
 	}
 
 }
